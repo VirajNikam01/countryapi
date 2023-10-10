@@ -9,13 +9,14 @@ const capital = document.querySelector('.capital')
 const topLevelDomain = document.querySelector('.top-level-domain')
 const currencies = document.querySelector('.currencies')
 const languages = document.querySelector('.languages')
+const themeChanger = document.querySelector('.theme-changer')
 
 const borderCountries = document.querySelector('.border-countries')
 
 
 fetch(`https://restcountries.com/v3.1/name/${countryName}?fullText=true`).then((resp)=> resp.json())
 .then(([country])=> {
-    console.log(country);
+    // console.log(country);
     flagImage.src = country.flags.svg
     countryNameH1.innerText = country.name.common
     if (country.name.nativeName) {
@@ -41,16 +42,21 @@ fetch(`https://restcountries.com/v3.1/name/${countryName}?fullText=true`).then((
     }
     if (country.borders) {
         country.borders.forEach((border)=>{
-            console.log(border);
+            // console.log(border);
             fetch(`https://restcountries.com/v3.1/alpha/${border}`).then((resp)=>resp.json())
             .then(([borderCountry])=>{
                 // console.log(borderCountry);
                const borderCountryTag =  document.createElement('a')
                borderCountryTag.href = `country.html?name=${borderCountry.name.common}`
                borderCountryTag.innerText = borderCountry.name.common
-               console.log(borderCountryTag);
+            //    console.log(borderCountryTag);
                borderCountries.append(borderCountryTag)
             })
         })
     }
 })
+
+themeChanger.addEventListener('click', ()=>{
+    document.body.classList.toggle('dark')
+    
+  })
